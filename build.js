@@ -11,6 +11,8 @@ if (exitCode) {
 
 shell.echo("Copying package.json to /dist");
 shell.cp("package.json", "dist/package.json");
+shell.echo("Copying README.md to /dist");
+shell.cp("README.md", "dist/README.md");
 shell.cd("dist");
 const generatedFiles = shell.ls();
 
