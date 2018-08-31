@@ -3,15 +3,31 @@ import * as React from "react"
 import { withStyles, WithTheme, withTheme } from "@material-ui/core"
 import { Theme } from "@material-ui/core/styles"
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
+import classNames from "classnames"
 import { BrowserRouter as Router } from "react-router-dom"
 import returnof from "returnof"
-import { LegacyCSSLayoutProvider } from "../layout/LegacyCSSLayout"
-import { styled } from "../utilities/styled"
+import {
+	LegacyCSSLayoutProvider,
+	WithLegacyCSSLayout
+} from "../layout/LegacyCSSLayout"
+import { WithWidth } from "../utilities/WithWidth"
 
 /**
  * Begin Styles
  */
 const styles = (theme: Theme) => ({
+	appFrame: {
+		display: "grid",
+		gridTemplateColumns: "auto 1fr",
+		gridTemplateRows: "auto 1fr auto",
+		gridTemplateAreas:
+			"'titlebar titlebar' 'navigation content' 'navigation bottomnavigation'",
+		width: "100%",
+		height: "100%"
+	} as CSSProperties,
+
+	appFrameLegacy: {} as CSSProperties,
+
 	"@global": {
 		html: {
 			height: "100%",
@@ -51,18 +67,9 @@ type ClassNames = keyof typeof returnType
  * End Styles
  */
 
-const StyledAppFrame = styled("div")(() => ({
-	display: "grid",
-	gridTemplateColumns: "auto 1fr",
-	gridTemplateRows: "auto 1fr auto",
-	gridTemplateAreas:
-		"'titlebar titlebar' 'navigation content' 'navigation bottomnavigation'",
-	width: "100%",
-	height: "100%"
-}))
-
 interface Props {
 	children: JSX.Element | JSX.Element[]
+	className?: string
 	withLegacyMobileLayout?: boolean
 }
 
@@ -131,7 +138,7 @@ class AppFrame extends React.Component<
 	}
 
 	public render() {
-		const { children, withLegacyMobileLayout } = this.props
+		const { children, className, classes, withLegacyMobileLayout } = this.props
 
 		return (
 			<Router>
@@ -143,13 +150,37 @@ class AppFrame extends React.Component<
 						closeNavigationDrawer: this.closeNavigationDrawer
 					}}
 				>
-					{withLegacyMobileLayout ? (
-						<LegacyCSSLayoutProvider>
-							<StyledAppFrame>{children}</StyledAppFrame>
-						</LegacyCSSLayoutProvider>
-					) : (
-						<StyledAppFrame>{children}</StyledAppFrame>
-					)}
+					<WithWidth>
+						{({ width }) => (
+							<>
+								{withLegacyMobileLayout &&
+								(width === "xs" || width === "sm") ? (
+									<LegacyCSSLayoutProvider>
+										<WithLegacyCSSLayout>
+											{({ appBarHeight, bottomNavigationHeight }) => (
+												<div
+													className={classNames(
+														classes.appFrameLegacy,
+														className
+													)}
+													style={{
+														paddingTop: appBarHeight,
+														paddingBottom: bottomNavigationHeight
+													}}
+												>
+													{children}
+												</div>
+											)}
+										</WithLegacyCSSLayout>
+									</LegacyCSSLayoutProvider>
+								) : (
+									<div className={classNames(classes.appFrame, className)}>
+										{children}
+									</div>
+								)}
+							</>
+						)}
+					</WithWidth>
 				</Provider>
 			</Router>
 		)
