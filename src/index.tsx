@@ -1,12 +1,13 @@
-import * as React from "react"
 import * as ReactDOM from "react-dom"
+import * as Layouts from "./test_layouts"
 
-import { App } from "demo/App"
-import { Providers } from "demo/Providers"
+const rootElement = document.getElementById("root")
 
-ReactDOM.render(
-	<Providers>
-		<App />
-	</Providers>,
-	document.getElementById("root")
-)
+ReactDOM.render(Layouts.DemoLayout, rootElement)
+
+// For testing purposes, allow replacing entire layout
+const win = window as any
+win.renderLayout = (name: string) => {
+	ReactDOM.render(Layouts[name], rootElement)
+}
+win.layouts = Layouts
