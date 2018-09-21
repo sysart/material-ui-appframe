@@ -12,6 +12,7 @@ import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
 import { RouteComponentProps, withRouter } from "react-router"
 import returnof from "returnof"
 import { WithAppFrameContext } from "../layout/AppFrame"
+import { CSSDrawer } from "./CSSDrawer"
 
 /**
  * Begin Styles
@@ -25,11 +26,11 @@ const styles = (theme: Theme) => ({
 	drawerHeader: theme.mixins.toolbar as CSSProperties,
 
 	drawerSwipeable: {
-		width: 250
+		width: 270
 	} as CSSProperties,
 
 	drawerPaper: {
-		width: 250,
+		width: 270,
 		position: "static",
 		height: "auto"
 	} as CSSProperties
@@ -87,6 +88,7 @@ class NavigationDrawer extends React.Component<
 
 	public render() {
 		const { children, classes } = this.props
+		const scrollSnapSupported = CSS.supports("scroll-snap-align: start")
 		return (
 			<Provider
 				value={{
@@ -101,26 +103,41 @@ class NavigationDrawer extends React.Component<
 							navigationDrawerOpen,
 							openNavigationDrawer,
 							closeNavigationDrawer
-						}) => (
-							<SwipeableDrawer
-								open={navigationDrawerOpen}
-								classes={{
-									paper: classes.drawerSwipeable
-								}}
-								onOpen={openNavigationDrawer}
-								onClose={closeNavigationDrawer}
-								ModalProps={{
-									keepMounted: true
-								}}
-								keepMounted
-							>
-								<nav>
-									<div className={classes.drawerHeader} />
-									<Divider />
-									{children}
-								</nav>
-							</SwipeableDrawer>
-						)}
+						}) =>
+							scrollSnapSupported ? (
+								<CSSDrawer
+									width={270}
+									open={navigationDrawerOpen}
+									onOpen={openNavigationDrawer}
+									onClose={closeNavigationDrawer}
+								>
+									<nav>
+										<div className={classes.drawerHeader} />
+										<Divider />
+										{children}
+									</nav>
+								</CSSDrawer>
+							) : (
+								<SwipeableDrawer
+									open={navigationDrawerOpen}
+									classes={{
+										paper: classes.drawerSwipeable
+									}}
+									onOpen={openNavigationDrawer}
+									onClose={closeNavigationDrawer}
+									ModalProps={{
+										keepMounted: true
+									}}
+									keepMounted
+								>
+									<nav>
+										<div className={classes.drawerHeader} />
+										<Divider />
+										{children}
+									</nav>
+								</SwipeableDrawer>
+							)
+						}
 					</WithAppFrameContext>
 				</Hidden>
 				<Hidden smDown>

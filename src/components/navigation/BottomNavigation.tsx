@@ -18,7 +18,8 @@ export type BottomNavigationProps = Pick<
 }
 
 const StyledBottomNavigation = styled(MuiBottomNavigation)(() => ({
-	gridArea: "bottomnavigation"
+	gridArea: "bottomnavigation",
+	overflowX: "hidden"
 }))
 
 const StyledBottomNavigationLegacy = styled(MuiBottomNavigation)((theme) => ({
