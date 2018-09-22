@@ -2,6 +2,12 @@
 
 [Material UI](https://material-ui.com/) is an implementation of Google's [Material Design](https://material.io/) for projects using the [React](https://reactjs.org/) web development library. This library provides additional high level components for building the core layout of your application. Material UI AppFrame allows you to spend less time reinventing the wheel and more time focusing on what really matters.
 
+```
+npm install material-ui-appframe @material-ui/core @material-ui/icons
+```
+
+To get started, see the sample projects in the `examples` directory
+
 At this time, the main features are:
 
 - High level components such as Navigation, TitleBar and MainContent that let you cleanly describe the core layout and structure of your application (see examples below)
