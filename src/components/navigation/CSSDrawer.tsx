@@ -89,7 +89,9 @@ const returnType = returnof(styles)
 type ClassNames = keyof typeof returnType
 // END STYLES
 
-class CSSDrawerImpl extends React.Component<Props & WithStyles<ClassNames>> {
+class CSSDrawerImpl extends React.Component<
+	Props & WithStyles<ClassNames, true>
+> {
 	private scrollElement: any
 	private backdrop: any
 	private container: any
@@ -110,7 +112,7 @@ class CSSDrawerImpl extends React.Component<Props & WithStyles<ClassNames>> {
 		this.minimizeContainer()
 	}
 
-	public componentDidUpdate(prevProps: Props & WithStyles) {
+	public componentDidUpdate(prevProps: Props & WithStyles<ClassNames, true>) {
 		this.rtl = !!(this.props.theme && this.props.theme.direction === "rtl")
 
 		const prevRtl = !!(prevProps.theme && prevProps.theme.direction === "rtl")
