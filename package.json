@@ -1,7 +1,7 @@
 {
     "name": "material-ui-appframe",
     "description": "Responsive application frame for Material UI web applications",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "main": "index.js",
     "author": "Sysart Oy",
     "license": "MIT",
