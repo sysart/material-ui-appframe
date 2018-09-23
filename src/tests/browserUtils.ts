@@ -96,7 +96,10 @@ export const goToPage = (
 	url: string = "/"
 ) => {
 	return page
-		.goto("http://localhost:3001" + url, { waitUntil: "networkidle0" })
+		.goto("http://localhost:3001" + url, {
+			waitUntil: "networkidle0",
+			timeout: 60000
+		})
 		.then(() => setWidth(width))
 		.then(() => renderLayout(layout))
 }

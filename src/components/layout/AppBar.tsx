@@ -15,7 +15,6 @@ const StyledAppBar = styled(MuiAppBar)(() => ({
 const StyledLegacyAppBar = styled(MuiAppBar)((theme) => ({
 	position: "static",
 	overflow: "hidden",
-	gridArea: "titlebar",
 
 	[theme.breakpoints.down("sm")]: {
 		position: "fixed"

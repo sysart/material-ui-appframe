@@ -5,6 +5,7 @@ export * from "./extraComponents/titleBar/TitleBarSearch"
 
 export * from "./layout/AppBar"
 export * from "./layout/AppFrame"
+export * from "./layout/SubMenu"
 export * from "./layout/LegacyCSSLayout"
 export * from "./layout/MainContent"
 

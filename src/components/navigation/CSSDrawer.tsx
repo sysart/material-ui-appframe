@@ -1,13 +1,14 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { Paper } from "@material-ui/core"
+import { Paper, withWidth } from "@material-ui/core"
 import { withStyles } from "@material-ui/core/styles"
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
+import { WithWidth } from "@material-ui/core/withWidth"
 import returnof from "returnof"
 
 interface Props {
-	width: number
+	drawerWidth: number
 	open: boolean
 	onOpen: () => void
 	onClose: () => void
@@ -90,7 +91,7 @@ type ClassNames = keyof typeof returnType
 // END STYLES
 
 class CSSDrawerImpl extends React.Component<
-	Props & WithStyles<ClassNames, true>
+	Props & WithStyles<ClassNames, true> & WithWidth
 > {
 	private scrollElement: any
 	private backdrop: any
@@ -112,14 +113,22 @@ class CSSDrawerImpl extends React.Component<
 		this.minimizeContainer()
 	}
 
-	public componentDidUpdate(prevProps: Props & WithStyles<ClassNames, true>) {
+	public componentDidUpdate(
+		prevProps: Props & WithStyles<ClassNames, true> & WithWidth
+	) {
 		this.rtl = !!(this.props.theme && this.props.theme.direction === "rtl")
 
 		const prevRtl = !!(prevProps.theme && prevProps.theme.direction === "rtl")
 
+		if (this.props.width !== prevProps.width) {
+			this.scrollElement.scrollLeft = this.props.open
+				? this.getNormalizedPosition(this.props.drawerWidth)
+				: this.getNormalizedPosition(0)
+		}
+
 		if (this.rtl !== prevRtl) {
 			this.scrollElement.scrollLeft =
-				this.props.width - this.scrollElement.scrollLeft
+				this.props.drawerWidth - this.scrollElement.scrollLeft
 		}
 
 		if (this.props.open && !prevProps.open) {
@@ -132,7 +141,7 @@ class CSSDrawerImpl extends React.Component<
 	private openDrawer = () => {
 		this.unMinimizeContainer()
 		this.scrollElement.scroll({
-			left: this.getNormalizedPosition(this.props.width),
+			left: this.getNormalizedPosition(this.props.drawerWidth),
 			behavior: "smooth"
 		})
 	}
@@ -183,7 +192,7 @@ class CSSDrawerImpl extends React.Component<
 			return
 		}
 		const scrollPosition = this.getNormalizedPosition(this.scrollPosition)
-		if (scrollPosition === this.props.width) {
+		if (scrollPosition === this.props.drawerWidth) {
 			this.unMinimizeContainer()
 			if (!this.props.open) {
 				// console.log("Firing onOpen")
@@ -213,7 +222,8 @@ class CSSDrawerImpl extends React.Component<
 		this.ticking = true
 		requestAnimationFrame(() => {
 			this.backdrop.style.opacity =
-				this.getNormalizedPosition(this.scrollPosition) / (this.props.width * 2)
+				this.getNormalizedPosition(this.scrollPosition) /
+				(this.props.drawerWidth * 2)
 			this.checkIfStoppedMoving()
 
 			this.ticking = false
@@ -231,7 +241,7 @@ class CSSDrawerImpl extends React.Component<
 		if (this.rtl) {
 			return scrollPosition
 		}
-		return this.props.width - scrollPosition
+		return this.props.drawerWidth - scrollPosition
 	}
 
 	private setContainer = (elem: HTMLDivElement | null) => {
@@ -263,7 +273,7 @@ class CSSDrawerImpl extends React.Component<
 					<div
 						className={classes.movable}
 						style={{
-							width: `calc(100% + ${this.props.width}px)`
+							width: `calc(100% + ${this.props.drawerWidth}px)`
 						}}
 						onTouchStart={this.startDragging}
 						onTouchCancel={this.stopDragging}
@@ -276,7 +286,7 @@ class CSSDrawerImpl extends React.Component<
 							<DrawerContents drawerOpen={this.props.open}>
 								<Paper
 									className={classes.paper}
-									style={{ width: this.props.width }}
+									style={{ width: this.props.drawerWidth }}
 									square
 									onClick={(event) => {
 										// stop menu clicks from propagating to parent and closing drawer
@@ -321,4 +331,6 @@ class DrawerContents extends React.Component<DrawerContentsProps> {
 	}
 }
 
-export const CSSDrawer = withStyles(styles, { withTheme: true })(CSSDrawerImpl)
+export const CSSDrawer = withWidth()(
+	withStyles(styles, { withTheme: true })(CSSDrawerImpl)
+)

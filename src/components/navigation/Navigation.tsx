@@ -106,7 +106,7 @@ class NavigationDrawer extends React.Component<
 						}) =>
 							scrollSnapSupported ? (
 								<CSSDrawer
-									width={270}
+									drawerWidth={270}
 									open={navigationDrawerOpen}
 									onOpen={openNavigationDrawer}
 									onClose={closeNavigationDrawer}

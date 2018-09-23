@@ -18,10 +18,38 @@ import { WithWidth } from "../utilities/WithWidth"
 const styles = (theme: Theme) => ({
 	appFrame: {
 		display: "grid",
-		gridTemplateColumns: "auto 1fr",
-		gridTemplateRows: "auto 1fr auto",
+		gridTemplateColumns: "auto auto minmax(0, 1fr)",
+		gridTemplateRows: "auto minmax(0, 1fr) auto",
+		/**
+		 *                       auto            auto                       minmax(0, 1fr)
+		 *                 +-------------------------------------------------------------------------------+
+		 *           auto  |   titlebar        titlebar                        titlebar                    |
+		 *                 |                                                                               |
+		 *                 +---------------+---------------+-----------------------------------------------+
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 * minmax(0, 1fr)  |  navigation   |    submenu    |                    content                    |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               |                                               |
+		 *                 |               |               +-----------------------------------------------+
+		 *           auto  |  navigation   |    submenu    |               bottomnavigation                |
+		 *                 |               |               |                                               |
+		 *                 +---------------+---------------+-----------------------------------------------+
+		 */
+
 		gridTemplateAreas:
-			"'titlebar titlebar' 'navigation content' 'navigation bottomnavigation'",
+			"'titlebar titlebar titlebar' 'navigation submenu content' 'navigation submenu bottomnavigation'",
+
 		width: "100%",
 		height: "100%"
 	} as CSSProperties,

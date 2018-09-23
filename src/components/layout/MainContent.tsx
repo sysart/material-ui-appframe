@@ -11,11 +11,16 @@ interface Props {
 }
 
 const styles = (theme: Theme) => ({
-	main: {
+	container: {
 		gridArea: "content",
 		backgroundColor: theme.palette.background.default,
-		padding: theme.spacing.unit * 3,
-		overflowY: "auto"
+		position: "relative" // Allow components e.g. floating action buttons to be positioned independently of scroll
+	} as CSSProperties,
+
+	main: {
+		height: "100%",
+		overflowY: "auto",
+		padding: theme.spacing.unit * 3
 	} as CSSProperties
 })
 
@@ -23,9 +28,11 @@ const styles = (theme: Theme) => ({
  * The main content of your application.
  */
 export const MainContent = withStyles(styles)(
-	(props: Props & WithStyles<"main">) => (
-		<main className={classNames(props.classes.main, props.className)}>
-			{props.children}
-		</main>
+	(props: Props & WithStyles<"container" | "main">) => (
+		<div className={props.classes.container}>
+			<main className={classNames(props.classes.main, props.className)}>
+				{props.children}
+			</main>
+		</div>
 	)
 )
