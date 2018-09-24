@@ -8,6 +8,7 @@ export * from "./layout/AppFrame"
 export * from "./layout/SubMenu"
 export * from "./layout/LegacyCSSLayout"
 export * from "./layout/MainContent"
+export * from "./layout/FloatingActionButton"
 
 export * from "./navigation/BottomNavigation"
 export * from "./navigation/NavigationCollapse"
