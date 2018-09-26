@@ -2,6 +2,7 @@ export * from "./extraComponents/titleBar/NavigationToggle"
 export * from "./extraComponents/titleBar/Title"
 export * from "./extraComponents/titleBar/TitleBar"
 export * from "./extraComponents/titleBar/TitleBarSearch"
+export * from "./extraComponents/titleBar/UpNavigationButton"
 
 export * from "./layout/AppBar"
 export * from "./layout/AppFrame"
