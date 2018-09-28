@@ -1,9 +1,10 @@
 import * as React from "react"
 
-import { withStyles } from "@material-ui/core"
+import { AppBar, Toolbar, withStyles } from "@material-ui/core"
 import { Theme } from "@material-ui/core/styles"
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
 import classNames from "classnames"
+import { styled } from "../utilities"
 
 interface Props {
 	children: JSX.Element | JSX.Element[]
@@ -37,4 +38,26 @@ export const SubMenu = withStyles(styles)(
 			</div>
 		</div>
 	)
+)
+
+export const SubMenuAppBar = styled(AppBar)(() => ({
+	display: "contents"
+}))
+
+export const SubMenuToolbar = styled(Toolbar)(() => ({
+	gridRowStart: 1,
+	gridRowEnd: 1,
+	gridColumnStart: 2,
+	gridColumnEnd: 2,
+	zIndex: 2000
+}))
+
+interface SubMenuTitleBarProps {
+	children: React.ReactNode
+}
+
+export const SubMenuTitleBar = (props: SubMenuTitleBarProps) => (
+	<SubMenuAppBar>
+		<SubMenuToolbar>{props.children}</SubMenuToolbar>
+	</SubMenuAppBar>
 )
