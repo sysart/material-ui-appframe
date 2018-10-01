@@ -7,7 +7,7 @@ import classNames from "classnames"
 import { styled } from "../utilities"
 
 interface Props {
-	children: JSX.Element | JSX.Element[]
+	children: React.ReactNode
 	className?: string
 	style?: CSSProperties
 }

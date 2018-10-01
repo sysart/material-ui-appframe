@@ -1,12 +1,15 @@
 import * as React from "react"
 
+interface LegacyCSSLayoutProps {
+	disabled?: boolean
+}
 interface LegacyCSSLayoutState {
-	legacyMobileCssEnabled: boolean
 	appBarHeight: number
 	bottomNavigationHeight: number
 }
 
 export interface LegacyCSSLayoutContext extends LegacyCSSLayoutState {
+	legacyMobileCssEnabled: boolean
 	setAppBarHeight: (height: number) => void
 	setBottomNavigationHeight: (height: number) => void
 }
@@ -24,13 +27,12 @@ const { Consumer, Provider } = React.createContext<LegacyCSSLayoutContext>({
 export { Consumer as WithLegacyCSSLayout }
 
 export class LegacyCSSLayoutProvider extends React.Component<
-	{},
+	LegacyCSSLayoutProps,
 	LegacyCSSLayoutState
 > {
 	public state = {
 		appBarHeight: 0,
-		bottomNavigationHeight: 0,
-		legacyMobileCssEnabled: true
+		bottomNavigationHeight: 0
 	}
 
 	private setAppBarHeight = (appBarHeight: number) => {
@@ -49,7 +51,7 @@ export class LegacyCSSLayoutProvider extends React.Component<
 					...this.state,
 					setAppBarHeight,
 					setBottomNavigationHeight,
-					legacyMobileCssEnabled: true
+					legacyMobileCssEnabled: !this.props.disabled
 				}}
 			>
 				{this.props.children}

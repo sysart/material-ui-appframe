@@ -31,7 +31,7 @@ const StyledNestedNavigationList = styled(List)((theme) => ({
 }))
 
 interface Props {
-	children: JSX.Element | JSX.Element[]
+	children: React.ReactNode
 	icon: string
 	label: React.ReactNode
 }

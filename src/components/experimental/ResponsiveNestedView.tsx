@@ -1,17 +1,13 @@
 import * as React from "react"
 
-import {
-	AppBar,
-	Icon,
-	IconButton,
-	Toolbar,
-	Typography,
-	withWidth
-} from "@material-ui/core"
+import { Typography, withWidth } from "@material-ui/core"
 import { WithWidth } from "@material-ui/core/withWidth"
 import { RouteComponentProps, withRouter } from "react-router"
 import { DesktopDialog } from "../extraComponents/DesktopDialog"
 import { MobileActivity } from "../extraComponents/MobileActivity"
+import { TitleBar } from "../extraComponents/titleBar/TitleBar"
+import { UpNavigationButton } from "../extraComponents/titleBar/UpNavigationButton"
+import { MainContent } from "../layout/MainContent"
 
 interface Props {
 	title: string
@@ -26,53 +22,25 @@ class ResponsiveNestedView extends React.Component<
 		if (width === "xs") {
 			return (
 				<MobileActivity>
-					{(closeDialog) => (
-						<>
-							<AppBar style={{ position: "relative" }}>
-								<Toolbar>
-									<IconButton
-										color="inherit"
-										onClick={closeDialog}
-										aria-label="Close"
-									>
-										<Icon>arrow_back</Icon>
-									</IconButton>
-									<Typography
-										variant="title"
-										color="inherit"
-										style={{ flex: 1 }}
-									>
-										{title}
-									</Typography>
-								</Toolbar>
-							</AppBar>
-							{children}
-						</>
-					)}
+					<TitleBar>
+						<UpNavigationButton />
+						<Typography variant="title" color="inherit" style={{ flex: 1 }}>
+							{title}
+						</Typography>
+					</TitleBar>
+					<MainContent>{children}</MainContent>
 				</MobileActivity>
 			)
 		}
 		return (
 			<DesktopDialog>
-				{(closeDialog) => (
-					<>
-						<AppBar style={{ position: "relative" }}>
-							<Toolbar>
-								<Typography variant="title" color="inherit" style={{ flex: 1 }}>
-									{title}
-								</Typography>
-								<IconButton
-									color="inherit"
-									onClick={closeDialog}
-									aria-label="Close"
-								>
-									<Icon>close</Icon>
-								</IconButton>
-							</Toolbar>
-						</AppBar>
-						{children}
-					</>
-				)}
+				<TitleBar>
+					<Typography variant="title" color="inherit" style={{ flex: 1 }}>
+						{title}
+					</Typography>
+					<UpNavigationButton icon="close" />
+				</TitleBar>
+				<MainContent>{children}</MainContent>
 			</DesktopDialog>
 		)
 	}

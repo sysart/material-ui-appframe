@@ -96,7 +96,7 @@ type ClassNames = keyof typeof returnType
  */
 
 interface Props {
-	children: JSX.Element | JSX.Element[]
+	children: React.ReactNode
 	className?: string
 	withLegacyMobileLayout?: boolean
 }
@@ -179,35 +179,36 @@ class AppFrame extends React.Component<
 					}}
 				>
 					<WithWidth>
-						{({ width }) => (
-							<>
-								{withLegacyMobileLayout &&
-								(width === "xs" || width === "sm") ? (
-									<LegacyCSSLayoutProvider>
-										<WithLegacyCSSLayout>
-											{({ appBarHeight, bottomNavigationHeight }) => (
-												<div
-													className={classNames(
-														classes.appFrameLegacy,
-														className
-													)}
-													style={{
-														paddingTop: appBarHeight,
-														paddingBottom: bottomNavigationHeight
-													}}
-												>
-													{children}
-												</div>
-											)}
-										</WithLegacyCSSLayout>
-									</LegacyCSSLayoutProvider>
-								) : (
-									<div className={classNames(classes.appFrame, className)}>
-										{children}
-									</div>
-								)}
-							</>
-						)}
+						{({ width }) => {
+							const useMobileLayout =
+								withLegacyMobileLayout && (width === "xs" || width === "sm")
+							return (
+								<LegacyCSSLayoutProvider disabled={!useMobileLayout}>
+									<WithLegacyCSSLayout>
+										{({ appBarHeight, bottomNavigationHeight }) => (
+											<div
+												className={classNames(
+													useMobileLayout
+														? classes.appFrameLegacy
+														: classes.appFrame,
+													className
+												)}
+												style={
+													useMobileLayout
+														? {
+																paddingTop: appBarHeight,
+																paddingBottom: bottomNavigationHeight
+														  }
+														: undefined
+												}
+											>
+												{children}
+											</div>
+										)}
+									</WithLegacyCSSLayout>
+								</LegacyCSSLayoutProvider>
+							)
+						}}
 					</WithWidth>
 				</Provider>
 			</Router>

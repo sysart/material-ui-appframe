@@ -6,7 +6,7 @@ import { ToolbarProps } from "@material-ui/core/Toolbar"
 import { AppBar } from "../../layout/AppBar"
 
 interface Props {
-	children: JSX.Element | JSX.Element[]
+	children: React.ReactNode
 
 	className?: string
 

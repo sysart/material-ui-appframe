@@ -6,7 +6,7 @@ import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
 import classNames from "classnames"
 
 interface Props {
-	children: JSX.Element | JSX.Element[]
+	children?: React.ReactNode
 	className?: string
 }
 

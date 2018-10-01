@@ -1,20 +1,22 @@
 import * as React from "react"
 
 import { Icon, IconButton } from "@material-ui/core"
-import { withRouter } from "react-router"
+import { WithRoutedDialogContext } from "../../layout/RoutedDialog"
 
-export const UpNavigationButton = withRouter((props) => (
-	<IconButton
-		color="inherit"
-		onClick={() => {
-			props.history.push(
-				props.location.pathname.slice(
-					0,
-					props.location.pathname.lastIndexOf("/")
-				)
-			)
-		}}
-	>
-		<Icon>arrow_back</Icon>
-	</IconButton>
-))
+interface Props {
+	icon?: React.ReactNode
+}
+
+export const UpNavigationButton = ({ icon }: Props) => (
+	<WithRoutedDialogContext>
+		{({ goBack }) => (
+			<IconButton color="inherit" onClick={goBack}>
+				{typeof icon === "string" ? (
+					<Icon>{icon}</Icon>
+				) : (
+					icon || <Icon>arrow_back</Icon>
+				)}
+			</IconButton>
+		)}
+	</WithRoutedDialogContext>
+)
