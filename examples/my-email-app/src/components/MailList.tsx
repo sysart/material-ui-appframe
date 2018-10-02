@@ -55,7 +55,9 @@ export const MailList = withRouter((props) => (
 				{({ messages }) =>
 					Object.values(messages).map((message: Message) => (
 						<MailListItem
-							selected={props.match.params.mail_id === message.id}
+							selected={
+								props.match && props.match.params.mail_id === message.id
+							}
 							message={message}
 							key={message.id}
 						/>
