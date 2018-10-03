@@ -64,10 +64,28 @@ const styles = (theme: Theme) => ({
 		"*, *:before, *:after": {
 			boxSizing: "inherit"
 		},
-		"-webkit-scrollbar": {
-			width: "6px",
-			backgroundColor: "#F5F5F5"
+
+		/**
+		 * A WIP minimalist scrollbar.
+		 * Todo: Figure out how to make it "overlay" on top of content instead of pushing content.
+		 */
+
+		/*
+		"::-webkit-scrollbar": {
+			width: 8,
+			height: 8
 		},
+
+		"::-webkit-scrollbar-thumb": {
+			backgroundColor: "#66666666",
+			borderRadius: "8px"
+		},
+
+		"::-webkit-scrollbar-thumb:hover": {
+			backgroundColor: "#666666AA"
+		},
+		*/
+
 		body: {
 			height: "100%",
 			margin: 0,
