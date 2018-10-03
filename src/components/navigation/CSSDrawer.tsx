@@ -47,7 +47,7 @@ const styles = () => ({
 	movable: {
 		position: "absolute",
 		top: 0,
-		bottom: 20
+		bottom: 0
 	} as CSSProperties,
 
 	paper: {
@@ -59,12 +59,15 @@ const styles = () => ({
 		position: "absolute",
 		zIndex: 10000,
 		top: 0,
-		bottom: -20,
+		bottom: 0,
 		left: 0,
 		right: 0,
 		overflowY: "hidden",
 		overflowX: "scroll",
-		scrollSnapType: "x mandatory" as any
+		scrollSnapType: "x mandatory" as any,
+		"&::-webkit-scrollbar": {
+			display: "none"
+		}
 	} as CSSProperties,
 
 	scrollSnapStart: {
