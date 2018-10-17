@@ -60,11 +60,11 @@ export const VideoGridItem = ({ video }: VideoGridItemProps) => (
 				</AuthorAvatar>
 			</Hidden>
 			<div>
-				<VideoTitle variant="title">{video.title}</VideoTitle>
-				<VideoSubheading variant="subheading">
+				<VideoTitle variant="h6">{video.title}</VideoTitle>
+				<VideoSubheading variant="subtitle1">
 					{video.uploadedBy}
 				</VideoSubheading>
-				<VideoSubheading variant="subheading">
+				<VideoSubheading variant="subtitle1">
 					{`${abbreviateNumber(video.viewCount)} views • ${moment(
 						video.uploadDate
 					).fromNow()}`}

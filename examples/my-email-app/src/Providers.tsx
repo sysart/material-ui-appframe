@@ -11,6 +11,9 @@ interface Props {
 export const Providers = (props: Props) => (
 	<MuiThemeProvider
 		theme={createMuiTheme({
+			typography: {
+				useNextVariants: true
+			},
 			palette: { primary: colors.red, secondary: colors.blue }
 		})}
 	>

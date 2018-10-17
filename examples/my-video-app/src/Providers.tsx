@@ -17,6 +17,9 @@ export const MockVideoDataProvider = (props: MockVideoDataProviderProps) =>
 export const Providers = (props: Props) => (
 	<MuiThemeProvider
 		theme={createMuiTheme({
+			typography: {
+				useNextVariants: true
+			},
 			palette: {
 				primary: colors.deepPurple
 			}

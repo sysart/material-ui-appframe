@@ -6,7 +6,7 @@ import { VideoGridItem } from "./VideoGridItem"
 export const HomePage = () => (
 	<Grid item container spacing={16}>
 		<Grid item>
-			<Typography variant="title">Recommended</Typography>
+			<Typography variant="h6">Recommended</Typography>
 		</Grid>
 		<Grid item container spacing={16}>
 			<MockVideoDataProvider>
@@ -21,7 +21,7 @@ export const HomePage = () => (
 			<Divider />
 		</Grid>
 		<Grid item>
-			<Typography variant="title">Recommended</Typography>
+			<Typography variant="h6">Recommended</Typography>
 		</Grid>
 		<Grid item container spacing={16}>
 			<MockVideoDataProvider>

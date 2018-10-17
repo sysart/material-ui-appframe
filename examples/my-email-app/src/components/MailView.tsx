@@ -107,7 +107,7 @@ export const MailViewTitleBar = () => (
 export const MailView = ({ message }: Props) => (
 	<MailContainer square>
 		<TitleRow>
-			<MailTitle variant="title">{message.title}</MailTitle>
+			<MailTitle variant="h6">{message.title}</MailTitle>
 			<IconButton
 				onClick={(event) => {
 					event.stopPropagation()
