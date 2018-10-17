@@ -15,6 +15,9 @@ export const Providers = (props: Props) => (
 			{({ rightToLeft, darkMode }) => (
 				<MuiThemeProvider
 					theme={createMuiTheme({
+						typography: {
+							useNextVariants: true
+						},
 						palette: { type: darkMode ? "dark" : "light" },
 						direction: rightToLeft ? "rtl" : "ltr"
 					})}

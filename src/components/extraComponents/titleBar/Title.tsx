@@ -10,7 +10,7 @@ const StyledTypography = styled(Typography)(() => ({
 
 /**
  * Title component works exactly like
- * <Typography variant="title" color="inherit" noWrap>
+ * <Typography variant="h6" color="inherit" noWrap>
  * except that it also sets document.title accordingly.
  */
 export class Title extends React.Component<TypographyProps> {
@@ -35,12 +35,7 @@ export class Title extends React.Component<TypographyProps> {
 
 	public render() {
 		return (
-			<StyledTypography
-				variant="title"
-				color="inherit"
-				noWrap
-				{...this.props}
-			/>
+			<StyledTypography variant="h6" color="inherit" noWrap {...this.props} />
 		)
 	}
 }

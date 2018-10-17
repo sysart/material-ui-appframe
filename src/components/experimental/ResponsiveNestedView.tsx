@@ -24,7 +24,7 @@ class ResponsiveNestedView extends React.Component<
 				<MobileActivity>
 					<TitleBar>
 						<UpNavigationButton />
-						<Typography variant="title" color="inherit" style={{ flex: 1 }}>
+						<Typography variant="h6" color="inherit" style={{ flex: 1 }}>
 							{title}
 						</Typography>
 					</TitleBar>
@@ -35,7 +35,7 @@ class ResponsiveNestedView extends React.Component<
 		return (
 			<DesktopDialog>
 				<TitleBar>
-					<Typography variant="title" color="inherit" style={{ flex: 1 }}>
+					<Typography variant="h6" color="inherit" style={{ flex: 1 }}>
 						{title}
 					</Typography>
 					<UpNavigationButton icon="close" />

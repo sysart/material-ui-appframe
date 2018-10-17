@@ -83,8 +83,11 @@ export const getClientRectAndWindow = (selector: string) =>
 				left: clientRect.left,
 				right: clientRect.right
 			},
-			windowHeight: document.documentElement.clientHeight,
-			windowWidth: document.documentElement.clientWidth,
+			windowHeight:
+				(document.documentElement && document.documentElement.clientHeight) ||
+				0,
+			windowWidth:
+				(document.documentElement && document.documentElement.clientWidth) || 0,
 			scrollX: window.scrollX,
 			scrollY: window.scrollY
 		}

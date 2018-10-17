@@ -5,10 +5,8 @@ import { Card, CardContent, Grid, Typography } from "@material-ui/core"
 export const Home = () => (
 	<Grid container spacing={16}>
 		<Grid item>
-			<Typography variant="display2">
-				Welcome to Material UI AppFrame
-			</Typography>
-			<Typography variant="subheading">
+			<Typography variant="h3">Welcome to Material UI AppFrame</Typography>
+			<Typography variant="subtitle1">
 				Powering the next generation of progressive web applications
 			</Typography>
 		</Grid>
