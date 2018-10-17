@@ -54,7 +54,9 @@ interface Props {
 	to: string
 	exact?: boolean
 	icon?: string | React.ReactElement<any>
-	text?: string
+	// Whether or not to preserve url params
+	keepParams?: boolean
+	// Label
 	children: React.ReactNode
 	// Optional props for the Link
 	linkProps?: LinkProps
@@ -76,6 +78,7 @@ class NavigationLink extends React.Component<
 			to,
 			icon,
 			children,
+			keepParams,
 			location,
 			linkProps,
 			listItemProps,
@@ -92,7 +95,11 @@ class NavigationLink extends React.Component<
 				{({ closeNavigationDrawer }) => (
 					<Link
 						onClick={closeNavigationDrawer}
-						to={to}
+						to={{
+							pathname: to,
+							search: keepParams ? location.search : undefined,
+							hash: keepParams ? location.hash : undefined
+						}}
 						className={classes.sidebarLink}
 						{...linkProps}
 					>
