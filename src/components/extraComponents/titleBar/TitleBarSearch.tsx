@@ -7,22 +7,22 @@ interface TitleBarSearchProps {
 	autoFocus?: boolean
 }
 
-const TitleBarSearchContainer = styled("div")(() => ({
+const TitleBarSearchContainer = styled("div")({
 	flex: 1,
 	margin: 10
-}))
+})
 
-const TitleBarSearchPaper = styled(Paper)(() => ({
+const TitleBarSearchPaper = styled(Paper)({
 	display: "flex",
 	flex: 1,
 	alignItems: "center",
 	margin: "auto",
 	maxWidth: 500
-}))
+})
 
-const TitleBarInput = styled(Input)(() => ({
+const TitleBarInput = styled(Input)({
 	flex: 1
-}))
+})
 
 const StyledIcon = styled(Icon)((theme) => ({
 	color: theme.palette.grey["500"],

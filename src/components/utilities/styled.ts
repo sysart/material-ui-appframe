@@ -5,11 +5,11 @@ import { Theme } from "@material-ui/core/styles"
 import { CSSProperties } from "@material-ui/core/styles/withStyles"
 import classNames from "classnames"
 
-type StyleFunction = (theme: Theme) => CSSProperties
+type StyleDefinition = ((theme: Theme) => CSSProperties) | CSSProperties
 
 type StyledHtml = <T extends keyof JSX.IntrinsicElements>(
 	component: T,
-	styles: StyleFunction
+	styles: StyleDefinition
 ) => (
 	props: JSX.IntrinsicElements[T]
 ) => React.ReactElement<JSX.IntrinsicElements[T]>
@@ -17,26 +17,26 @@ type StyledHtml = <T extends keyof JSX.IntrinsicElements>(
 type CurriedStyledHtml = <T extends keyof JSX.IntrinsicElements>(
 	component: T
 ) => ((
-	styles: StyleFunction
+	styles: StyleDefinition
 ) => ((
 	props: JSX.IntrinsicElements[T]
 ) => React.ReactElement<JSX.IntrinsicElements[T]>))
 
 type StyledComponent = <T = {}>(
 	component: React.ComponentType<T>,
-	styles: StyleFunction
+	styles: StyleDefinition
 ) => (props: T) => React.ReactElement<T>
 
 type CurriedStyledComponent = <T = {}>(
 	component: React.ComponentType<T>
-) => ((styles: StyleFunction) => ((props: T) => React.ReactElement<T>))
+) => ((styles: StyleDefinition) => ((props: T) => React.ReactElement<T>))
 
 const styledImpl: StyledHtml & StyledComponent = (
 	component: any,
-	styles: StyleFunction
+	styles: StyleDefinition
 ) => {
 	const styleCallback = (theme: Theme) => ({
-		styled: styles(theme)
+		styled: typeof styles === "function" ? styles(theme) : styles
 	})
 
 	return withStyles(styleCallback)((props: any) => {

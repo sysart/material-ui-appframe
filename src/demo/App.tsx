@@ -149,9 +149,9 @@ const StyledTitle = styled(Title)((theme) => ({
 	color: theme.palette.type === "light" ? "lightgreen" : "yellow"
 }))
 
-const Separator = styled("div")(() => ({
+const Separator = styled("div")({
 	flex: 1
-}))
+})
 
 /**
  * Example custom UI components that need access to state and/or actions.

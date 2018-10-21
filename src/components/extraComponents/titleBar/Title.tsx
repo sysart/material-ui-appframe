@@ -4,9 +4,9 @@ import { Typography } from "@material-ui/core"
 import { TypographyProps } from "@material-ui/core/Typography"
 import { styled } from "../../utilities/styled"
 
-const StyledTypography = styled(Typography)(() => ({
+const StyledTypography = styled(Typography)({
 	cursor: "default"
-}))
+})
 
 /**
  * Title component works exactly like

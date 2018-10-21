@@ -40,17 +40,17 @@ export const SubMenu = withStyles(styles)(
 	)
 )
 
-export const SubMenuAppBar = styled(AppBar)(() => ({
+export const SubMenuAppBar = styled(AppBar)({
 	display: "contents"
-}))
+})
 
-export const SubMenuToolbar = styled(Toolbar)(() => ({
+export const SubMenuToolbar = styled(Toolbar)({
 	gridRowStart: 1,
 	gridRowEnd: 1,
 	gridColumnStart: 2,
 	gridColumnEnd: 2,
 	zIndex: 2000
-}))
+})
 
 interface SubMenuTitleBarProps {
 	children: React.ReactNode
