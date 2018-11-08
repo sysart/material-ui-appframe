@@ -32,6 +32,7 @@ import { GridDemo } from "./GridDemo"
 import { Home } from "./Home"
 import { NestDemo, ShowPet } from "./NestDemo"
 import { Samples } from "./Samples"
+import { StyledWithClassesDemo } from "./StyledWithClassesDemo"
 import { WithThemeOptions } from "./ThemeOptionsProvider"
 
 export const App = () => (
@@ -75,6 +76,9 @@ export const App = () => (
 				<NavigationLink to="/grid" icon="view_quilt">
 					CSS3 grid demo
 				</NavigationLink>
+				<NavigationLink to="/styled" icon="border_color">
+					Styling with classes
+				</NavigationLink>
 			</List>
 			<List>
 				<ListSubheader>Collapse menu demo:</ListSubheader>
@@ -115,6 +119,7 @@ export const App = () => (
 				<Route path="/pets" component={NestDemo} />
 				<Route path="/cards" component={Cards} />
 				<Route path="/grid" component={GridDemo} />
+				<Route path="/styled" component={StyledWithClassesDemo} />
 			</Switch>
 			<Route path="/pets/:id" component={ShowPet} />
 		</MainContent>

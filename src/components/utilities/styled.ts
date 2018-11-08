@@ -2,7 +2,11 @@ import * as React from "react"
 
 import { withStyles } from "@material-ui/core"
 import { Theme } from "@material-ui/core/styles"
-import { CSSProperties } from "@material-ui/core/styles/withStyles"
+import {
+	CSSProperties,
+	StyleRules,
+	StyleRulesCallback
+} from "@material-ui/core/styles/withStyles"
 import classNames from "classnames"
 
 type StyleDefinition = ((theme: Theme) => CSSProperties) | CSSProperties
@@ -35,20 +39,29 @@ const styledImpl: StyledHtml & StyledComponent = (
 	component: any,
 	styles: StyleDefinition
 ) => {
-	const styleCallback = (theme: Theme) => ({
-		styled: typeof styles === "function" ? styles(theme) : styles
-	})
+	const styleRules: StyleRulesCallback | StyleRules =
+		typeof styles === "function"
+			? (theme: Theme) => ({
+					styled: styles(theme)
+			  })
+			: {
+					styled: styles
+			  }
 
-	return withStyles(styleCallback)((props: any) => {
+	const Styled = withStyles(styleRules)((props: any) => {
 		const { classes, className, innerRef, theme, ...remainingProps } = props
 		const { styled, ...remainingClasses } = classes
 		const elementProps = {
 			className: classNames(styled, props.className), // combine class names to allow overriding styles
-			classes: remainingClasses, // pass classes to allow overriding styles (currently causes warning)
+			classes: remainingClasses,
 			...remainingProps
 		}
 		return React.createElement(component, elementProps)
 	}) as any
+
+	Styled.displayName = `styled(${component.displayName})`
+
+	return Styled
 }
 
 const curriedStyledImpl: CurriedStyledHtml & CurriedStyledComponent = (

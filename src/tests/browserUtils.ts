@@ -26,24 +26,35 @@ export const isPageScrollable = () =>
 	)
 
 export const isHorizScrollable = (selector: string) =>
-	page.$eval(selector, (elem: HTMLElement) => {
-		const style = getComputedStyle(elem)
-		return elem.scrollWidth > elem.offsetWidth && style.overflowX !== "hidden"
+	page.$eval(selector, (elem) => {
+		const element = elem as HTMLElement
+		const style = getComputedStyle(element)
+		return (
+			element.scrollWidth > element.offsetWidth && style.overflowX !== "hidden"
+		)
 	})
 
 export const isVertScrollable = (selector: string) =>
-	page.$eval(selector, (elem: HTMLElement) => {
+	page.$eval(selector, (elem) => {
+		const element = elem as HTMLElement
+
 		const style = getComputedStyle(elem)
-		return elem.scrollHeight > elem.offsetHeight && style.overflowY !== "hidden"
+		return (
+			element.scrollHeight > element.offsetHeight &&
+			style.overflowY !== "hidden"
+		)
 	})
 
 export const isScrollable = (selector: string) =>
-	page.$eval(selector, (elem: HTMLElement) => {
+	page.$eval(selector, (elem) => {
+		const element = elem as HTMLElement
+
 		const style = getComputedStyle(elem)
 		const horizScrollable =
-			elem.scrollWidth > elem.offsetWidth && style.overflowX !== "hidden"
+			element.scrollWidth > element.offsetWidth && style.overflowX !== "hidden"
 		const vertScrollable =
-			elem.scrollHeight > elem.offsetHeight && style.overflowY !== "hidden"
+			element.scrollHeight > element.offsetHeight &&
+			style.overflowY !== "hidden"
 		return horizScrollable || vertScrollable
 	})
 

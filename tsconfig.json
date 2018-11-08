@@ -22,7 +22,8 @@
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "baseUrl": "src",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
   "include": [
     "src"
