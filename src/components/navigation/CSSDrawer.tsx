@@ -102,7 +102,7 @@ class CSSDrawerImpl extends React.Component<
 
 	private scrollPosition: number = 0
 
-	private canMinimizeContainer: boolean
+	private canMinimizeContainer: boolean = true
 
 	private dragging: boolean = false
 	private ticking: boolean = false

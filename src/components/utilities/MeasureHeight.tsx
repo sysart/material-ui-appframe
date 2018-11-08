@@ -10,7 +10,7 @@ interface Props {
 
 class MeasureHeight extends React.Component<Props & WithWidth> {
 	private domNode: any
-	private height: number
+	private height: number = 0
 
 	public componentDidMount() {
 		this.reportHeight()

@@ -14,7 +14,7 @@ const StyledTypography = styled(Typography)({
  * except that it also sets document.title accordingly.
  */
 export class Title extends React.Component<TypographyProps> {
-	private lastTitle: string
+	private lastTitle: string = ""
 
 	public componentDidMount() {
 		this.updateTitle()

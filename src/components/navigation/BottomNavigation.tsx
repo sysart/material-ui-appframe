@@ -58,7 +58,7 @@ const Component = (
 							<StyledBottomNavigationLegacy
 								{...remainingProps}
 								value={path}
-								onChange={(event: never, newPath: string) => {
+								onChange={(event: unknown, newPath: string) => {
 									props.history.push(newPath)
 								}}
 							>
@@ -71,7 +71,7 @@ const Component = (
 						<StyledBottomNavigation
 							{...remainingProps}
 							value={path}
-							onChange={(event: never, newPath: string) => {
+							onChange={(event: unknown, newPath: string) => {
 								props.history.push(newPath)
 							}}
 						>
