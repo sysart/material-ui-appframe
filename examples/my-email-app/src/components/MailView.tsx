@@ -14,30 +14,30 @@ import { withRouter } from "react-router"
 import { Message } from "../mockEmails"
 import { GetMailById } from "./GetMailById"
 
-const MailContainer = styled(Paper)(() => ({
+const MailContainer = styled(Paper)({
 	display: "flex",
 	flexDirection: "column",
 	height: "100%"
-}))
+})
 
-const TitleRow = styled("div")(() => ({
+const TitleRow = styled("div")({
 	flexShrink: 0,
 	display: "flex",
 	alignItems: "center",
 	padding: "20px",
 	paddingLeft: "30px"
-}))
+})
 
-const MailTitle = styled(Typography)(() => ({
+const MailTitle = styled(Typography)({
 	flexGrow: 1,
 	fontWeight: 400
-}))
+})
 
-const SenderRow = styled("div")(() => ({
+const SenderRow = styled("div")({
 	flexShrink: 0,
 	display: "flex",
 	padding: "20px"
-}))
+})
 
 const MessageDetails = styled("div")((theme) => ({
 	marginLeft: theme.spacing.unit * 2,
@@ -51,32 +51,32 @@ const MessageDivider = styled(Divider)((theme) => ({
 	marginRight: theme.spacing.unit * 3
 }))
 
-const MessageActions = styled("div")(() => ({
+const MessageActions = styled("div")({
 	whiteSpace: "nowrap"
-}))
+})
 
-const Flex = styled("div")(() => ({
+const Flex = styled("div")({
 	display: "flex"
-}))
+})
 
 const DetailsExpand = styled("a")((theme) => ({
 	marginLeft: theme.spacing.unit / 2
 }))
 
-const MessageFrom = styled(Typography)(() => ({
+const MessageFrom = styled(Typography)({
 	fontWeight: 500,
 	fontSize: "1.05em"
-}))
+})
 
 const MessageInfo = styled(Typography)((theme) => ({
 	fontWeight: 200,
 	color: theme.palette.grey[700]
 }))
 
-const MessageBody = styled("div")(() => ({
+const MessageBody = styled("div")({
 	flex: 1,
 	background: "lightblue"
-}))
+})
 
 interface Props {
 	message: Message

@@ -8,7 +8,7 @@
     "@types/node": "^10.12.0",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
-    "material-ui-appframe": "^0.1.10",
+    "material-ui-appframe": "^0.1.11",
     "moment": "^2.22.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

@@ -20,7 +20,7 @@ const StyledListItem = styled(ListItem)((theme) => ({
 	paddingRight: theme.spacing.unit
 }))
 
-const Avatar = styled(MuiAvatar)(() => ({}))
+const Avatar = styled(MuiAvatar)({})
 
 const TextArea = styled("div")((theme) => ({
 	flex: 1,
@@ -31,50 +31,50 @@ const TextArea = styled("div")((theme) => ({
 	minWidth: 0
 }))
 
-const SenderRow = styled("div")(() => ({
+const SenderRow = styled("div")({
 	display: "flex",
 	flexDirection: "row"
-}))
+})
 
-const SenderAndMailCount = styled("div")(() => ({
+const SenderAndMailCount = styled("div")({
 	display: "flex",
 	flexDirection: "row",
 	flex: 1,
 	minWidth: 0
-}))
+})
 
-const DateAndInfo = styled("div")(() => ({
+const DateAndInfo = styled("div")({
 	display: "flex",
 	flexDirection: "row"
-}))
+})
 
-const TitleAndContentsRow = styled("div")(() => ({
+const TitleAndContentsRow = styled("div")({
 	display: "flex",
 	flexDirection: "row"
-}))
+})
 
-const TitleAndContents = styled("div")(() => ({
+const TitleAndContents = styled("div")({
 	flex: 1,
 	display: "flex",
 	flexDirection: "column",
 	minWidth: 0
-}))
+})
 
-const MailFrom = styled(Typography)(() => ({
+const MailFrom = styled(Typography)({
 	whiteSpace: "nowrap",
 	overflow: "hidden",
 	textOverflow: "ellipsis",
 	fontWeight: 500,
 	fontSize: "1.05em"
-}))
+})
 
-const MailFromRead = styled(Typography)(() => ({
+const MailFromRead = styled(Typography)({
 	whiteSpace: "nowrap",
 	overflow: "hidden",
 	textOverflow: "ellipsis",
 	fontWeight: 300,
 	fontSize: "1.05em"
-}))
+})
 
 const MailThreadCount = styled(Typography)((theme) => ({
 	paddingLeft: 6,
@@ -101,41 +101,41 @@ const MailDateTime = styled(Typography)((theme) => ({
 	color: theme.palette.secondary.main
 }))
 
-const MailDateTimeRead = styled(Typography)((theme) => ({
+const MailDateTimeRead = styled(Typography)({
 	fontWeight: 300
-}))
+})
 
-const MailTitle = styled(Typography)(() => ({
+const MailTitle = styled(Typography)({
 	whiteSpace: "nowrap",
 	overflow: "hidden",
 	textOverflow: "ellipsis",
 	fontWeight: 500
-}))
+})
 
-const MailTitleRead = styled(Typography)(() => ({
+const MailTitleRead = styled(Typography)({
 	whiteSpace: "nowrap",
 	overflow: "hidden",
 	textOverflow: "ellipsis",
 	fontWeight: 300
-}))
+})
 
-const MailContentPreview = styled(Typography)(() => ({
+const MailContentPreview = styled(Typography)({
 	whiteSpace: "nowrap",
 	overflow: "hidden",
 	textOverflow: "ellipsis"
-}))
+})
 
-const MailContentPreviewRead = styled(Typography)(() => ({
+const MailContentPreviewRead = styled(Typography)({
 	whiteSpace: "nowrap",
 	overflow: "hidden",
 	textOverflow: "ellipsis",
 	fontWeight: 100
-}))
+})
 
-const MailLink = styled(Link)(() => ({
+const MailLink = styled(Link)({
 	color: "initial",
 	textDecoration: "none"
-}))
+})
 
 interface Props {
 	message: Message

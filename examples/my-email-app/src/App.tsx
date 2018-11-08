@@ -161,6 +161,6 @@ const Nav = () => (
 	</Navigation>
 )
 
-const MainContent = styled(AppFrameMainContent)(() => ({
+const MainContent = styled(AppFrameMainContent)({
 	padding: 0
-}))
+})

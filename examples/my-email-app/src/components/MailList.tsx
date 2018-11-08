@@ -44,9 +44,9 @@ const formatMailboxTitle = (s: string) => {
 	return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-const Separator = styled("div")(() => ({
+const Separator = styled("div")({
 	flex: 1
-}))
+})
 
 export const MailList = withRouter((props) => (
 	<>

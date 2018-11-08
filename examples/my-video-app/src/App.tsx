@@ -23,18 +23,18 @@ import {
 import { styled } from "material-ui-appframe/utilities"
 import { Route, Switch } from "react-router"
 
-const BottomNavigationAction = styled(MuiBottomNavigationAction)(() => ({
+const BottomNavigationAction = styled(MuiBottomNavigationAction)({
 	minWidth: 30
-}))
+})
 
-const StyledTitle = styled(Title)(() => ({
+const StyledTitle = styled(Title)({
 	margin: 10,
 	flexShrink: 0
-}))
+})
 
-const Separator = styled("div")(() => ({
+const Separator = styled("div")({
 	flex: 1
-}))
+})
 
 export const App = () => (
 	<AppFrame>

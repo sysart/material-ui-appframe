@@ -17,24 +17,24 @@ interface VideoGridItemProps {
 	video: Video
 }
 
-const FakeThumbnail = styled(Paper)(() => ({
+const FakeThumbnail = styled(Paper)({
 	paddingBottom: "55%"
-}))
+})
 
-const VideoDetails = styled("div")(() => ({
+const VideoDetails = styled("div")({
 	display: "flex",
 	flexDirection: "row",
 	paddingTop: 4
-}))
+})
 
-const AuthorAvatar = styled(IconButton)(() => ({
+const AuthorAvatar = styled(IconButton)({
 	margin: 6
-}))
+})
 
-const VideoTitle = styled(Typography)(() => ({
+const VideoTitle = styled(Typography)({
 	fontSize: "1.0rem",
 	fontWeight: 500
-}))
+})
 
 const VideoSubheading = styled(Typography)((theme) => ({
 	fontSize: "0.9rem",

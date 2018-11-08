@@ -5621,10 +5621,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-material-ui-appframe@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/material-ui-appframe/-/material-ui-appframe-0.1.10.tgz#378786eb67f211a7d380f1ab95cda3adb260a4ba"
-  integrity sha512-gs5JqPJmP94V4NGdGn7K7EW+tLNocJ8ybyAY7dg+AoK0E5850O/VvR9n/NUT0D22pl4FC6g2ImAATgOeig9FmQ==
+material-ui-appframe@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/material-ui-appframe/-/material-ui-appframe-0.1.11.tgz#87468efdbefd305d031e9ad97f3d4a374214935e"
+  integrity sha512-Z9ht9pqC0AnoGZWnFPskKRm+n3JdCPJCneBc1h3YJeVXa724kx2PdqInTWr7VK3WAdcoAxQWVgPg3FSovZ9Z7w==
   dependencies:
     classnames "^2.2.6"
     returnof "^1.1.1"
