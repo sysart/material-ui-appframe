@@ -10,8 +10,6 @@ import {
 	ListSubheader,
 	Tooltip
 } from "@material-ui/core"
-import WbIncandescent from "@material-ui/icons/WbIncandescent"
-import WbIncandescentOutlined from "@material-ui/icons/WbIncandescentOutlined"
 import {
 	AppFrame,
 	BottomNavigation,
@@ -27,6 +25,7 @@ import {
 import { styled } from "components/utilities"
 import { Route, Switch } from "react-router-dom"
 import { Cards } from "./Cards"
+import { ColorPicker } from "./ColorPicker"
 import { Components } from "./Components"
 import { GridDemo } from "./GridDemo"
 import { Home } from "./Home"
@@ -49,8 +48,8 @@ export const App = () => (
 					<Icon>search</Icon>
 				</IconButton>
 			</Hidden>
+			<ColorPicker />
 			<ToggleRightToLeft />
-			<ToggleDarkMode />
 		</TitleBar>
 		<Navigation>
 			<List>
@@ -151,7 +150,8 @@ export const App = () => (
  */
 
 const StyledTitle = styled(Title)((theme) => ({
-	color: theme.palette.type === "light" ? "lightgreen" : "yellow"
+	color:
+		theme.palette.type === "light" ? theme.palette.secondary.main : "yellow"
 }))
 
 const Separator = styled("div")({
@@ -168,18 +168,6 @@ const ToggleRightToLeft = () => (
 			<Tooltip title="Toggle LTR / RTL">
 				<IconButton color="inherit" onClick={toggleRightToLeft}>
 					<Icon>swap_horiz</Icon>
-				</IconButton>
-			</Tooltip>
-		)}
-	</WithThemeOptions>
-)
-
-const ToggleDarkMode = () => (
-	<WithThemeOptions>
-		{({ darkMode, toggleDarkMode }) => (
-			<Tooltip title="Toggle light / dark mode">
-				<IconButton color="inherit" onClick={toggleDarkMode}>
-					{darkMode ? <WbIncandescentOutlined /> : <WbIncandescent />}
 				</IconButton>
 			</Tooltip>
 		)}

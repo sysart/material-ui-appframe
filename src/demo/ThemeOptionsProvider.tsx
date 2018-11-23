@@ -7,11 +7,15 @@ interface Props {
 interface State {
 	darkMode: boolean
 	rightToLeft: boolean
+	primaryColor: string
+	secondaryColor: string
 }
 
 interface ThemeOptions extends State {
 	toggleDarkMode: () => void
 	toggleRightToLeft: () => void
+	setPrimaryColor: (color: string) => void
+	setSecondaryColor: (color: string) => void
 }
 
 const { Consumer: WithThemeOptions, Provider } = React.createContext<
@@ -23,7 +27,9 @@ export { WithThemeOptions }
 export class ThemeOptionsProvider extends React.Component<Props, State> {
 	public state = {
 		darkMode: false,
-		rightToLeft: false
+		rightToLeft: false,
+		primaryColor: "indigo",
+		secondaryColor: "cyan"
 	}
 
 	private toggleDarkMode = () => {
@@ -34,12 +40,22 @@ export class ThemeOptionsProvider extends React.Component<Props, State> {
 		this.setState((prevState) => ({ rightToLeft: !prevState.rightToLeft }))
 	}
 
+	private setPrimaryColor = (color: string) => {
+		this.setState({ primaryColor: color })
+	}
+
+	private setSecondaryColor = (color: string) => {
+		this.setState({ secondaryColor: color })
+	}
+
 	public render() {
 		return (
 			<Provider
 				value={{
 					toggleDarkMode: this.toggleDarkMode,
 					toggleRightToLeft: this.toggleRightToLeft,
+					setPrimaryColor: this.setPrimaryColor,
+					setSecondaryColor: this.setSecondaryColor,
 					...this.state
 				}}
 			>
