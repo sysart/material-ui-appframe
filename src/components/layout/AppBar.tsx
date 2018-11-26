@@ -2,8 +2,8 @@ import * as React from "react"
 
 import { AppBar as MuiAppBar } from "@material-ui/core"
 import { AppBarProps } from "@material-ui/core/AppBar"
+import { MeasureDOMProperty } from "components/utilities/MeasureDOMProperty"
 import { WithLegacyCSSLayout } from "../layout/LegacyCSSLayout"
-import { MeasureHeight } from "../utilities/MeasureHeight"
 import { styled } from "../utilities/styled"
 
 const StyledAppBar = styled(MuiAppBar)({
@@ -25,9 +25,13 @@ export const AppBar = (props: AppBarProps) => (
 	<WithLegacyCSSLayout>
 		{({ legacyMobileCssEnabled, setAppBarHeight }) =>
 			legacyMobileCssEnabled ? (
-				<MeasureHeight reportHeight={setAppBarHeight}>
+				<MeasureDOMProperty
+					default={0}
+					getValue={(elem: any) => (elem.clientHeight as number) || 0}
+					reportValue={setAppBarHeight}
+				>
 					<StyledLegacyAppBar {...props} />
-				</MeasureHeight>
+				</MeasureDOMProperty>
 			) : (
 				<StyledAppBar {...props} />
 			)

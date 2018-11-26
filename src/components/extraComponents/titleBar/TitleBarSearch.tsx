@@ -35,9 +35,9 @@ const StyledIcon = styled(Icon)((theme) => ({
 export const TitleBarSearch = (props: TitleBarSearchProps) => (
 	<TitleBarSearchContainer
 	/*
-	* The container keeps growing after the inner Paper has reached
-	* its maximum width, pushing any elements placed after this one to the right
-	*/
+	 * The container keeps growing after the inner Paper has reached
+	 * its maximum width, pushing any elements placed after this one to the right
+	 */
 	>
 		<TitleBarSearchPaper>
 			<StyledIcon>search</StyledIcon>

@@ -5,9 +5,9 @@ import {
 	Hidden
 } from "@material-ui/core"
 import { BottomNavigationProps as MuiBottomNavigationProps } from "@material-ui/core/BottomNavigation"
+import { MeasureDOMProperty } from "components/utilities/MeasureDOMProperty"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { WithLegacyCSSLayout } from "../layout/LegacyCSSLayout"
-import { MeasureHeight } from "../utilities/MeasureHeight"
 import { styled } from "../utilities/styled"
 
 export type BottomNavigationProps = Pick<
@@ -53,7 +53,11 @@ const Component = (
 		<WithLegacyCSSLayout>
 			{({ legacyMobileCssEnabled, setBottomNavigationHeight }) =>
 				legacyMobileCssEnabled ? (
-					<MeasureHeight reportHeight={setBottomNavigationHeight}>
+					<MeasureDOMProperty
+						default={0}
+						getValue={(elem: any) => (elem.clientHeight as number) || 0}
+						reportValue={setBottomNavigationHeight}
+					>
 						<Hidden mdUp={mobileOnly}>
 							<StyledBottomNavigationLegacy
 								{...remainingProps}
@@ -65,7 +69,7 @@ const Component = (
 								{children}
 							</StyledBottomNavigationLegacy>
 						</Hidden>
-					</MeasureHeight>
+					</MeasureDOMProperty>
 				) : (
 					<Hidden mdUp={mobileOnly}>
 						<StyledBottomNavigation
