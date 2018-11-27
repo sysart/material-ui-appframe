@@ -121,7 +121,6 @@ interface State {
 }
 
 export interface AppFrameContext extends State {
-	navigationDrawerOpen: boolean
 	toggleNavigationDrawer: () => void
 	openNavigationDrawer: () => void
 	closeNavigationDrawer: () => void
@@ -133,7 +132,22 @@ export interface AppFrameContext extends State {
 	setNavigationDrawerWidth: (width: number) => void
 }
 
-const { Consumer, Provider } = React.createContext<AppFrameContext>(null as any)
+const { Consumer, Provider } = React.createContext<AppFrameContext>({
+	navigationDrawerOpen: false,
+
+	appBarHeight: 0,
+	bottomNavigationHeight: 0,
+	navigationDrawerWidth: 0,
+
+	toggleNavigationDrawer: () => void 0,
+	openNavigationDrawer: () => void 0,
+	closeNavigationDrawer: () => void 0,
+
+	useGridLayout: false,
+	setAppBarHeight: () => void 0,
+	setBottomNavigationHeight: () => void 0,
+	setNavigationDrawerWidth: () => void 0
+})
 
 class AppFrame extends React.Component<
 	Props & WithStyles<ClassNames> & WithTheme,
