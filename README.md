@@ -11,7 +11,7 @@ To get started, see the sample projects in the `examples` directory
 At this time, the main features are:
 
 - High level components such as Navigation, TitleBar and MainContent that let you cleanly describe the core layout and structure of your application (see examples below)
-- Responsive layout based on CSS3 Grid (and an optional legacy mobile layout)
+- Responsive layout (optionally based on CSS3 grid)
 - Navigation drawer with support for collapse menus and a custom CSS based swipeable drawer for mobile devices
 - Bottom navigation bar for mobile devices
 - Routing with React router

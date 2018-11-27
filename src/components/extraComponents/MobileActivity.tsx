@@ -14,7 +14,7 @@ export const MobileActivity = (props: Partial<DialogProps>) => {
 			TransitionComponent={Transition}
 			{...remainingProps}
 		>
-			<AppFrame>{children}</AppFrame>
+			<AppFrame withGridLayout>{children}</AppFrame>
 		</RoutedDialog>
 	)
 }

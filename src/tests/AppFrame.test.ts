@@ -11,7 +11,7 @@ describe("AppFrame", () => {
 	const appFrameSelector = classNameBeginsWith("AppFrame")
 
 	it("Should never have a horizontal scrollbar", async () => {
-		await goToPage("TooWideThings")
+		await goToPage("TooWideThingsGrid")
 		await page.waitForSelector(appFrameSelector)
 
 		const horizScrollable = await isHorizScrollable(appFrameSelector)
@@ -19,7 +19,7 @@ describe("AppFrame", () => {
 	})
 
 	it("Should never have a vertical scrollbar", async () => {
-		await goToPage("SimpleScroll")
+		await goToPage("SimpleGridScroll")
 		await page.waitForSelector(appFrameSelector)
 
 		const vertScrollable = await isVertScrollable(appFrameSelector)
@@ -27,13 +27,13 @@ describe("AppFrame", () => {
 	})
 
 	it("On grid layout, should never cause page (document.body) to be scrollable", async () => {
-		await goToPage("SimpleScroll")
+		await goToPage("SimpleGridScroll")
 		await page.waitForSelector(appFrameSelector)
 
 		const pageScrollable = await isPageScrollable()
 		expect(pageScrollable).toBe(false)
 
-		await goToPage("TooWideThings")
+		await goToPage("TooWideThingsGrid")
 		await page.waitForSelector(appFrameSelector)
 
 		const pageScrollable2 = await isPageScrollable()
@@ -41,7 +41,7 @@ describe("AppFrame", () => {
 	})
 
 	it("On grid layout, should fill exactly the entire viewport", async () => {
-		await goToPage("TooWideThings")
+		await goToPage("TooWideThingsGrid")
 		await page.waitForSelector(appFrameSelector)
 
 		const { rect, windowWidth, windowHeight } = await getClientRectAndWindow(
@@ -54,8 +54,8 @@ describe("AppFrame", () => {
 		expect(rect.right).toBe(windowWidth)
 	})
 
-	it("On legacy mobile layout, should have top and bottom padding equal to the heights of the AppBar and BottomNavigation respectively, if present", async () => {
-		await goToPage("TooWideThingsMobile", "sm")
+	it("On standard css layout, should have top and bottom padding equal to the heights of the AppBar and BottomNavigation respectively, if present", async () => {
+		await goToPage("TooWideThingsStandard", "sm")
 		await page.waitForSelector(appFrameSelector)
 		const { paddingTop, paddingBottom } = await page.$eval(
 			appFrameSelector,
@@ -70,7 +70,7 @@ describe("AppFrame", () => {
 		expect(paddingTop).toBe("64px")
 		expect(paddingBottom).toBe("0px")
 
-		await goToPage("LegacyMobileScroll", "xs")
+		await goToPage("StandardScroll", "xs")
 		await page.waitForSelector(appFrameSelector)
 
 		const { paddingTop2, paddingBottom2 } = await page.$eval(
@@ -87,8 +87,8 @@ describe("AppFrame", () => {
 		expect(paddingBottom2).toBe("56px")
 	})
 
-	it("On legacy mobile layout, should grow higher than viewport when there is a lot of main content", async () => {
-		await goToPage("LegacyMobileScroll", "xs")
+	it("On standard css layout, should grow higher than viewport when there is a lot of main content", async () => {
+		await goToPage("StandardScroll", "xs")
 		await page.waitForSelector(appFrameSelector)
 
 		const { rect, windowWidth, windowHeight } = await getClientRectAndWindow(

@@ -10,17 +10,27 @@ import {
 import { Theme } from "@material-ui/core/styles"
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
 import { WithWidth } from "@material-ui/core/withWidth"
+import { WithLifecycle } from "components/utilities/WithLifecycle"
 import { RouteComponentProps, withRouter } from "react-router"
 import returnof from "returnof"
 import { WithAppFrameContext } from "../layout/AppFrame"
+import { MeasureDOMProperty } from "../utilities/MeasureDOMProperty"
 import { CSSDrawer } from "./CSSDrawer"
 
 /**
  * Begin Styles
  */
 const styles = (theme: Theme) => ({
-	drawerDocked: {
+	drawerDockedGrid: {
 		gridArea: "navigation",
+		display: "flex"
+	} as CSSProperties,
+
+	drawerDockedStandard: {
+		position: "fixed",
+		bottom: 0,
+		left: 0,
+		top: 0,
 		display: "flex"
 	} as CSSProperties,
 
@@ -96,72 +106,36 @@ class NavigationDrawer extends React.Component<
 		this.collapseOpenListeners.splice(index, 1)
 	}
 
-	private renderTemporaryDrawer() {
-		const { children, classes } = this.props
-		const scrollSnapSupported = CSS.supports("scroll-snap-align: start")
+	public render() {
 		return (
-			<WithAppFrameContext>
-				{({
-					navigationDrawerOpen,
-					openNavigationDrawer,
-					closeNavigationDrawer
-				}) =>
-					scrollSnapSupported ? (
-						<CSSDrawer
-							drawerWidth={270}
-							open={navigationDrawerOpen}
-							onOpen={openNavigationDrawer}
-							onClose={closeNavigationDrawer}
-						>
-							<nav>
-								<div className={classes.drawerHeader} />
-								<Divider />
-								{children}
-							</nav>
-						</CSSDrawer>
-					) : (
-						<SwipeableDrawer
-							open={navigationDrawerOpen}
-							classes={{
-								paper: classes.drawerSwipeable
-							}}
-							onOpen={openNavigationDrawer}
-							onClose={closeNavigationDrawer}
-							ModalProps={{
-								keepMounted: true
-							}}
-							keepMounted
-						>
-							<nav>
-								<div className={classes.drawerHeader} />
-								<Divider />
-								{children}
-							</nav>
-						</SwipeableDrawer>
-					)
-				}
-			</WithAppFrameContext>
+			<Provider
+				value={{
+					collapseOpen: this.collapseOpen,
+					subscribeToCollapseOpen: this.subscribeToCollapseOpen,
+					unsubscribeFromCollapseOpen: this.unsubscribeFromCollapseOpen
+				}}
+			>
+				{this.renderDrawer()}
+			</Provider>
 		)
 	}
 
-	private renderPermanentDrawer() {
-		const { children, classes } = this.props
+	private renderDrawer() {
+		const drawerVariants = this.getDrawerVariants()
 
-		return (
-			<Drawer
-				variant="permanent"
-				open
-				classes={{
-					docked: classes.drawerDocked,
-					paper: classes.drawerPaper
-				}}
-			>
-				<nav>
-					{/*<div className={classes.drawerHeader} />*/}
-					{children}
-				</nav>
-			</Drawer>
-		)
+		const { width } = this.props
+		switch (width) {
+			case "xs":
+				return this.renderDrawerVariant(drawerVariants.variant)
+			case "sm":
+				return this.renderDrawerVariant(drawerVariants.variantSm)
+			case "md":
+				return this.renderDrawerVariant(drawerVariants.variantMd)
+			case "lg":
+				return this.renderDrawerVariant(drawerVariants.variantLg)
+			case "xl":
+				return this.renderDrawerVariant(drawerVariants.variantXl)
+		}
 	}
 
 	private getDrawerVariants: () => DrawerVariants = () => {
@@ -202,43 +176,151 @@ class NavigationDrawer extends React.Component<
 	private renderDrawerVariant(variant: DrawerVariant) {
 		switch (variant) {
 			case "temporary":
-				return this.renderTemporaryDrawer()
+				return renderTemporaryDrawer(this.props)
 			case "permanent":
-				return this.renderPermanentDrawer()
+				return renderPermanentDrawer(this.props)
 		}
 	}
+}
 
-	private renderDrawer() {
-		const drawerVariants = this.getDrawerVariants()
+const renderTemporaryDrawer = (
+	props: Props & WithStyles<ClassNames> & RouteComponentProps<void> & WithWidth
+) => {
+	const { children, classes } = props
+	const scrollSnapSupported = CSS.supports("scroll-snap-align: start")
+	return (
+		<WithAppFrameContext>
+			{({
+				navigationDrawerOpen,
+				openNavigationDrawer,
+				closeNavigationDrawer,
+				setNavigationDrawerWidth,
+				useGridLayout
+			}) =>
+				scrollSnapSupported ? (
+					<CSSDrawer
+						drawerWidth={270}
+						open={navigationDrawerOpen}
+						onOpen={openNavigationDrawer}
+						onClose={closeNavigationDrawer}
+					>
+						{!useGridLayout && (
+							<WithLifecycle
+								mount
+								callback={() => {
+									setNavigationDrawerWidth(0)
+								}}
+							/>
+						)}
 
-		const { width } = this.props
-		switch (width) {
-			case "xs":
-				return this.renderDrawerVariant(drawerVariants.variant)
-			case "sm":
-				return this.renderDrawerVariant(drawerVariants.variantSm)
-			case "md":
-				return this.renderDrawerVariant(drawerVariants.variantMd)
-			case "lg":
-				return this.renderDrawerVariant(drawerVariants.variantLg)
-			case "xl":
-				return this.renderDrawerVariant(drawerVariants.variantXl)
-		}
-	}
+						<nav>
+							<div className={classes.drawerHeader} />
+							<Divider />
+							{children}
+						</nav>
+					</CSSDrawer>
+				) : (
+					<SwipeableDrawer
+						open={navigationDrawerOpen}
+						classes={{
+							paper: classes.drawerSwipeable
+						}}
+						onOpen={openNavigationDrawer}
+						onClose={closeNavigationDrawer}
+						ModalProps={{
+							keepMounted: true
+						}}
+						keepMounted
+					>
+						{!useGridLayout && (
+							<WithLifecycle
+								mount
+								callback={() => {
+									setNavigationDrawerWidth(0)
+								}}
+							/>
+						)}
+						<nav>
+							<div className={classes.drawerHeader} />
+							<Divider />
+							{children}
+						</nav>
+					</SwipeableDrawer>
+				)
+			}
+		</WithAppFrameContext>
+	)
+}
 
-	public render() {
-		return (
-			<Provider
-				value={{
-					collapseOpen: this.collapseOpen,
-					subscribeToCollapseOpen: this.subscribeToCollapseOpen,
-					unsubscribeFromCollapseOpen: this.unsubscribeFromCollapseOpen
+const renderPermanentDrawer = (
+	props: Props & WithStyles<ClassNames> & RouteComponentProps<void> & WithWidth
+) => {
+	return (
+		<WithAppFrameContext>
+			{({ useGridLayout, setNavigationDrawerWidth, appBarHeight }) =>
+				useGridLayout
+					? renderPermanentDrawerGrid(props)
+					: renderPermanentDrawerStandard(
+							props,
+							setNavigationDrawerWidth,
+							appBarHeight
+					  )
+			}
+		</WithAppFrameContext>
+	)
+}
+
+const renderPermanentDrawerStandard = (
+	props: Props & WithStyles<ClassNames> & RouteComponentProps<void> & WithWidth,
+	setNavigationDrawerWidth: (width: number) => void,
+	appBarHeight: number
+) => {
+	const { children, classes } = props
+
+	return (
+		<MeasureDOMProperty
+			default={0}
+			reportValue={setNavigationDrawerWidth}
+			getValue={(elem: any) => elem.clientWidth || 0}
+		>
+			<Drawer
+				style={{ top: appBarHeight }}
+				variant="permanent"
+				open
+				classes={{
+					docked: classes.drawerDockedStandard,
+					paper: classes.drawerPaper
 				}}
 			>
-				{this.renderDrawer()}
-			</Provider>
-		)
-	}
+				<nav>
+					{/*<div className={classes.drawerHeader} />*/}
+					{children}
+				</nav>
+			</Drawer>
+		</MeasureDOMProperty>
+	)
+}
+
+const renderPermanentDrawerGrid = (
+	props: Props & WithStyles<ClassNames> & RouteComponentProps<void> & WithWidth
+) => {
+	const { children, classes } = props
+
+	return (
+		<Drawer
+			variant="permanent"
+			open
+			classes={{
+				docked: classes.drawerDockedGrid,
+				paper: classes.drawerPaper
+			}}
+		>
+			<nav>
+				{/*<div className={classes.drawerHeader} />*/}
+				{children}
+			</nav>
+		</Drawer>
+	)
 }
 
 /**

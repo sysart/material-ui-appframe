@@ -9,7 +9,7 @@ export const DesktopDialog = (props: Partial<DialogProps>) => {
 	const { children, ...remainingProps } = props
 	return (
 		<RoutedDialog fullWidth TransitionComponent={Fade} {...remainingProps}>
-			<AppFrame>{children}</AppFrame>
+			<AppFrame withGridLayout>{children}</AppFrame>
 		</RoutedDialog>
 	)
 }

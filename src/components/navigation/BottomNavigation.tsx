@@ -7,7 +7,7 @@ import {
 import { BottomNavigationProps as MuiBottomNavigationProps } from "@material-ui/core/BottomNavigation"
 import { MeasureDOMProperty } from "components/utilities/MeasureDOMProperty"
 import { RouteComponentProps, withRouter } from "react-router-dom"
-import { WithLegacyCSSLayout } from "../layout/LegacyCSSLayout"
+import { WithAppFrameContext } from "../layout/AppFrame"
 import { styled } from "../utilities/styled"
 
 export type BottomNavigationProps = Pick<
@@ -17,29 +17,9 @@ export type BottomNavigationProps = Pick<
 	mobileOnly?: boolean
 }
 
-const StyledBottomNavigation = styled(MuiBottomNavigation)({
-	gridArea: "bottomnavigation",
-	overflowX: "hidden"
-})
-
-const StyledBottomNavigationLegacy = styled(MuiBottomNavigation)((theme) => ({
-	gridArea: "bottomnavigation",
-	[theme.breakpoints.down("sm")]: {
-		position: "fixed",
-		bottom: 0,
-		left: 0,
-		right: 0
-	}
-}))
-
-const Component = (
+const BottomNavigation = (
 	props: BottomNavigationProps & RouteComponentProps<void>
 ) => {
-	/**
-	 * Don't pass staticContext and classes to BottomNavigation.
-	 */
-	const { staticContext, mobileOnly, children, ...remainingProps } = props
-
 	/**
 	 *
 	 * Use the first part of the current path as the selected
@@ -50,48 +30,94 @@ const Component = (
 	const path = "/" + props.location.pathname.split("/")[1]
 
 	return (
-		<WithLegacyCSSLayout>
-			{({ legacyMobileCssEnabled, setBottomNavigationHeight }) =>
-				legacyMobileCssEnabled ? (
-					<MeasureDOMProperty
-						default={0}
-						getValue={(elem: any) => (elem.clientHeight as number) || 0}
-						reportValue={setBottomNavigationHeight}
-					>
-						<Hidden mdUp={mobileOnly}>
-							<StyledBottomNavigationLegacy
-								{...remainingProps}
-								value={path}
-								onChange={(event: unknown, newPath: string) => {
-									props.history.push(newPath)
-								}}
-							>
-								{children}
-							</StyledBottomNavigationLegacy>
-						</Hidden>
-					</MeasureDOMProperty>
-				) : (
-					<Hidden mdUp={mobileOnly}>
-						<StyledBottomNavigation
-							{...remainingProps}
-							value={path}
-							onChange={(event: unknown, newPath: string) => {
-								props.history.push(newPath)
-							}}
-						>
-							{children}
-						</StyledBottomNavigation>
-					</Hidden>
-				)
-			}
-		</WithLegacyCSSLayout>
+		<WithAppFrameContext>
+			{({
+				setBottomNavigationHeight,
+				navigationDrawerWidth,
+				useGridLayout
+			}) => (
+				<Hidden mdUp={props.mobileOnly}>
+					{useGridLayout
+						? renderGrid(props, path)
+						: renderStandard(
+								props,
+								path,
+								navigationDrawerWidth,
+								setBottomNavigationHeight
+						  )}
+				</Hidden>
+			)}
+		</WithAppFrameContext>
 	)
 }
+
+const renderStandard = (
+	props: BottomNavigationProps & RouteComponentProps<void>,
+	path: string,
+	navigationDrawerWidth: number,
+	setBottomNavigationHeight: (height: number) => void
+) => {
+	/**
+	 * Don't pass staticContext and classes to BottomNavigation.
+	 */
+	const { staticContext, mobileOnly, children, ...remainingProps } = props
+	return (
+		<MeasureDOMProperty
+			default={0}
+			getValue={(elem: any) => (elem.clientHeight as number) || 0}
+			reportValue={setBottomNavigationHeight}
+		>
+			<BottomNavigationStandard
+				{...remainingProps}
+				value={path}
+				onChange={(event: unknown, newPath: string) => {
+					props.history.push(newPath)
+				}}
+				style={{ left: navigationDrawerWidth }}
+			>
+				{children}
+			</BottomNavigationStandard>
+		</MeasureDOMProperty>
+	)
+}
+
+const BottomNavigationStandard = styled(MuiBottomNavigation)({
+	position: "fixed",
+	bottom: 0,
+	left: 0,
+	right: 0
+})
+
+const renderGrid = (
+	props: BottomNavigationProps & RouteComponentProps<void>,
+	path: string
+) => {
+	/**
+	 * Don't pass staticContext and classes to BottomNavigation.
+	 */
+	const { staticContext, mobileOnly, children, ...remainingProps } = props
+	return (
+		<BottomNavigationGrid
+			{...remainingProps}
+			value={path}
+			onChange={(event: unknown, newPath: string) => {
+				props.history.push(newPath)
+			}}
+		>
+			{children}
+		</BottomNavigationGrid>
+	)
+}
+
+const BottomNavigationGrid = styled(MuiBottomNavigation)({
+	gridArea: "bottomnavigation",
+	overflowX: "hidden"
+})
 
 /**
  * Bottom navigation for mobile devices. Implements navigation
  * with React router.
  */
-const BottomNavigation = withRouter(Component)
+const BottomNavigationWithRouter = withRouter(BottomNavigation)
 
-export { BottomNavigation }
+export { BottomNavigationWithRouter as BottomNavigation }

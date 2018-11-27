@@ -10,8 +10,7 @@ describe("AppBar", () => {
 	const appBarSelector = classNameBeginsWith("MuiAppBar")
 
 	it("Should render a <header> html tag", async () => {
-		await goToPage("DemoLayout")
-		// await renderLayout("DemoLayout")
+		await goToPage("StandardSimple")
 		await page.waitForSelector(appBarSelector)
 
 		const tagName = await page.$eval(appBarSelector, (appBar) => {
@@ -21,7 +20,7 @@ describe("AppBar", () => {
 	})
 
 	it("Should be positioned at the top of the viewport", async () => {
-		await goToPage("TooWideThings")
+		await goToPage("TooWideThingsGrid")
 		await page.waitForSelector(appBarSelector)
 
 		const { rect, windowWidth } = await getClientRectAndWindow(appBarSelector)
@@ -31,8 +30,8 @@ describe("AppBar", () => {
 		expect(rect.right).toBe(windowWidth)
 	})
 
-	it("On legacy mobile layout, should be positioned at the top of the viewport when scrolling", async () => {
-		await goToPage("LegacyMobileScroll", "xs")
+	it("On standard css layout, should be positioned at the top of the viewport when scrolling", async () => {
+		await goToPage("StandardScroll", "xs")
 		await page.waitForSelector(appBarSelector)
 		await page.evaluate(() => {
 			window.scrollBy(0, 300)
@@ -49,7 +48,7 @@ describe("AppBar", () => {
 	})
 
 	it("Should never have a scrollbar", async () => {
-		await goToPage("TooWideThings")
+		await goToPage("TooWideThingsGrid")
 		await page.waitForSelector(appBarSelector)
 
 		const horizScrollable = await isHorizScrollable(appBarSelector)

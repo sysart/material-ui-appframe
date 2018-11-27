@@ -16,8 +16,8 @@ import {
 	TitleBar
 } from "components"
 
-export const LegacyMobileScroll = () => (
-	<AppFrame withLegacyMobileLayout>
+export const StandardScroll = () => (
+	<AppFrame>
 		<TitleBar>
 			<Title>Simple layout</Title>
 		</TitleBar>

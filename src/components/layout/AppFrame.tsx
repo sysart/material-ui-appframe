@@ -6,17 +6,12 @@ import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
 import classNames from "classnames"
 import { BrowserRouter as Router } from "react-router-dom"
 import returnof from "returnof"
-import {
-	LegacyCSSLayoutProvider,
-	WithLegacyCSSLayout
-} from "../layout/LegacyCSSLayout"
-import { WithWidth } from "../utilities/WithWidth"
 
 /**
  * Begin Styles
  */
 const styles = (theme: Theme) => ({
-	appFrame: {
+	appFrameGrid: {
 		display: "grid",
 		gridTemplateColumns: "auto auto minmax(0, 1fr)",
 		gridTemplateRows: "auto minmax(0, 1fr) auto",
@@ -46,15 +41,13 @@ const styles = (theme: Theme) => ({
 		 *                 |               |               |                                               |
 		 *                 +---------------+---------------+-----------------------------------------------+
 		 */
-
 		gridTemplateAreas:
 			"'titlebar titlebar titlebar' 'navigation submenu content' 'navigation submenu bottomnavigation'",
-
 		width: "100%",
 		height: "100%"
 	} as CSSProperties,
 
-	appFrameLegacy: {} as CSSProperties,
+	appFrameStandard: {} as CSSProperties,
 
 	"@global": {
 		html: {
@@ -116,18 +109,28 @@ type ClassNames = keyof typeof returnType
 interface Props {
 	children: React.ReactNode
 	className?: string
-	withLegacyMobileLayout?: boolean
+	withGridLayout?: boolean
+}
+interface State {
+	navigationDrawerOpen: boolean
+
+	// layout
+	appBarHeight: number
+	bottomNavigationHeight: number
+	navigationDrawerWidth: number
 }
 
-export interface AppFrameContext {
+export interface AppFrameContext extends State {
 	navigationDrawerOpen: boolean
 	toggleNavigationDrawer: () => void
 	openNavigationDrawer: () => void
 	closeNavigationDrawer: () => void
-}
 
-interface State {
-	navigationDrawerOpen: boolean
+	// layout
+	useGridLayout: boolean
+	setAppBarHeight: (height: number) => void
+	setBottomNavigationHeight: (height: number) => void
+	setNavigationDrawerWidth: (width: number) => void
 }
 
 const { Consumer, Provider } = React.createContext<AppFrameContext>(null as any)
@@ -162,7 +165,10 @@ class AppFrame extends React.Component<
 	}
 
 	public state = {
-		navigationDrawerOpen: false
+		navigationDrawerOpen: false,
+		appBarHeight: 0,
+		bottomNavigationHeight: 0,
+		navigationDrawerWidth: 0
 	}
 
 	private toggleNavigationDrawer = () => {
@@ -183,8 +189,27 @@ class AppFrame extends React.Component<
 		}
 	}
 
+	private setAppBarHeight = (appBarHeight: number) => {
+		this.setState({ appBarHeight })
+	}
+
+	private setBottomNavigationHeight = (bottomNavigationHeight: number) => {
+		this.setState({ bottomNavigationHeight })
+	}
+
+	private setNavigationDrawerWidth = (navigationDrawerWidth: number) => {
+		this.setState({ navigationDrawerWidth })
+	}
+
 	public render() {
-		const { children, className, classes, withLegacyMobileLayout } = this.props
+		const { children, className, classes, withGridLayout } = this.props
+		const {
+			appBarHeight,
+			bottomNavigationHeight,
+			navigationDrawerWidth
+		} = this.state
+
+		const useGridLayout = !!withGridLayout
 
 		return (
 			<Router>
@@ -193,41 +218,29 @@ class AppFrame extends React.Component<
 						...this.state,
 						toggleNavigationDrawer: this.toggleNavigationDrawer,
 						openNavigationDrawer: this.openNavigationDrawer,
-						closeNavigationDrawer: this.closeNavigationDrawer
+						closeNavigationDrawer: this.closeNavigationDrawer,
+						setAppBarHeight: this.setAppBarHeight,
+						setBottomNavigationHeight: this.setBottomNavigationHeight,
+						setNavigationDrawerWidth: this.setNavigationDrawerWidth,
+						useGridLayout
 					}}
 				>
-					<WithWidth>
-						{({ width }) => {
-							const useMobileLayout =
-								withLegacyMobileLayout && (width === "xs" || width === "sm")
-							return (
-								<LegacyCSSLayoutProvider disabled={!useMobileLayout}>
-									<WithLegacyCSSLayout>
-										{({ appBarHeight, bottomNavigationHeight }) => (
-											<div
-												className={classNames(
-													useMobileLayout
-														? classes.appFrameLegacy
-														: classes.appFrame,
-													className
-												)}
-												style={
-													useMobileLayout
-														? {
-																paddingTop: appBarHeight,
-																paddingBottom: bottomNavigationHeight
-														  }
-														: undefined
-												}
-											>
-												{children}
-											</div>
-										)}
-									</WithLegacyCSSLayout>
-								</LegacyCSSLayoutProvider>
-							)
-						}}
-					</WithWidth>
+					{useGridLayout ? (
+						<div className={classNames(classes.appFrameGrid, className)}>
+							{children}
+						</div>
+					) : (
+						<div
+							className={classNames(classes.appFrameStandard, className)}
+							style={{
+								paddingTop: appBarHeight,
+								paddingBottom: bottomNavigationHeight,
+								paddingLeft: navigationDrawerWidth
+							}}
+						>
+							{children}
+						</div>
+					)}
 				</Provider>
 			</Router>
 		)

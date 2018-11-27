@@ -76,9 +76,8 @@ export class ColorPicker extends React.Component<{}, State> {
 									{Object.keys(colors)
 										.filter((colorName) => colorName !== "common")
 										.map((colorName) => (
-											<Tooltip title={colorName}>
+											<Tooltip title={colorName} key={colorName}>
 												<ColorSelectButton
-													key={colorName}
 													style={{
 														background: colors[colorName][500],
 														border:
@@ -88,7 +87,7 @@ export class ColorPicker extends React.Component<{}, State> {
 													}}
 													onClick={() => setColor(colorName)}
 												>
-													{null}
+													{""}
 												</ColorSelectButton>
 											</Tooltip>
 										))}

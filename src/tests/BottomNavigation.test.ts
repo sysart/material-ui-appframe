@@ -8,7 +8,7 @@ describe("BottomNavigation", () => {
 	const bottomNavSelector = classNameBeginsWith("MuiBottomNavigation")
 
 	it("Should be positioned at the bottom of the viewport", async () => {
-		await goToPage("TooWideThings", "sm")
+		await goToPage("TooWideThingsGrid", "sm")
 		await page.waitForSelector(bottomNavSelector)
 
 		const { rect, windowWidth, windowHeight } = await getClientRectAndWindow(
@@ -21,7 +21,7 @@ describe("BottomNavigation", () => {
 	})
 
 	it("Should be positioned at the bottom of the viewport when scrolling", async () => {
-		await goToPage("SimpleScroll", "md", "/cards")
+		await goToPage("SimpleGridScroll", "md", "/cards")
 		await page.waitForSelector(bottomNavSelector)
 		// The page should not actually scroll in this layout
 		// Not sure if this test is even useful
@@ -40,8 +40,8 @@ describe("BottomNavigation", () => {
 		expect(scrollY).toBe(0)
 	})
 
-	it("On legacy mobile layout, should be positioned at the bottom of the viewport when scrolling", async () => {
-		await goToPage("LegacyMobileScroll", "xs")
+	it("On standard css layout, should be positioned at the bottom of the viewport when scrolling", async () => {
+		await goToPage("StandardScroll", "xs")
 		await page.waitForSelector(bottomNavSelector)
 		await page.evaluate(`window.scrollBy(0, 300)`)
 

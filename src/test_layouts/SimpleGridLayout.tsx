@@ -20,11 +20,11 @@ import { createMuiTheme } from "@material-ui/core"
 import * as colors from "@material-ui/core/colors"
 import { MuiThemeProvider } from "@material-ui/core/styles"
 
-export const LegacyMobileSimple = () => (
+export const SimpleGridLayout = () => (
 	<Providers>
-		<AppFrame withLegacyMobileLayout>
+		<AppFrame withGridLayout>
 			<TitleBar>
-				<Title>Simple legacy mobile</Title>
+				<Title>Simple layout</Title>
 			</TitleBar>
 			<MainContent>
 				<Card>

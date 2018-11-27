@@ -105,7 +105,7 @@ export const getClientRectAndWindow = (selector: string) =>
 	})
 
 export const goToPage = (
-	layout: string = "SimpleLayout",
+	layout: string = "SimpleGridLayout",
 	width: breakpoint = "lg",
 	url: string = "/"
 ) => {

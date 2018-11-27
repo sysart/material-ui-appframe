@@ -20,11 +20,11 @@ import { createMuiTheme } from "@material-ui/core"
 import * as colors from "@material-ui/core/colors"
 import { MuiThemeProvider } from "@material-ui/core/styles"
 
-export const SimpleLayout = () => (
+export const StandardSimple = () => (
 	<Providers>
 		<AppFrame>
 			<TitleBar>
-				<Title>Simple layout</Title>
+				<Title>Simple standard layout</Title>
 			</TitleBar>
 			<MainContent>
 				<Card>
