@@ -10,11 +10,11 @@ import {
 import { Theme } from "@material-ui/core/styles"
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles"
 import { WithWidth } from "@material-ui/core/withWidth"
-import { WithLifecycle } from "components/utilities/WithLifecycle"
 import { RouteComponentProps, withRouter } from "react-router"
 import returnof from "returnof"
 import { WithAppFrameContext } from "../layout/AppFrame"
 import { MeasureDOMProperty } from "../utilities/MeasureDOMProperty"
+import { WithLifecycle } from "../utilities/WithLifecycle"
 import { CSSDrawer } from "./CSSDrawer"
 
 /**

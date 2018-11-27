@@ -2,8 +2,8 @@ import * as React from "react"
 
 import { AppBar as MuiAppBar } from "@material-ui/core"
 import { AppBarProps } from "@material-ui/core/AppBar"
-import { MeasureDOMProperty } from "components/utilities/MeasureDOMProperty"
 import { WithAppFrameContext } from "../layout/AppFrame"
+import { MeasureDOMProperty } from "../utilities/MeasureDOMProperty"
 import { styled } from "../utilities/styled"
 
 export const AppBar = (props: AppBarProps) => (

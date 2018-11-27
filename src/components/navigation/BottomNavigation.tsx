@@ -5,9 +5,9 @@ import {
 	Hidden
 } from "@material-ui/core"
 import { BottomNavigationProps as MuiBottomNavigationProps } from "@material-ui/core/BottomNavigation"
-import { MeasureDOMProperty } from "components/utilities/MeasureDOMProperty"
 import { RouteComponentProps, withRouter } from "react-router-dom"
 import { WithAppFrameContext } from "../layout/AppFrame"
+import { MeasureDOMProperty } from "../utilities/MeasureDOMProperty"
 import { styled } from "../utilities/styled"
 
 export type BottomNavigationProps = Pick<
